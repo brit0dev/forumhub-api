@@ -20,7 +20,6 @@ import alura.forum.hub.model.TopicDetailedData;
 import alura.forum.hub.repository.TopicRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Null;
 
 @RestController
 @RequestMapping("/topicos")
@@ -31,10 +30,12 @@ public class TopicController {
 
     @PostMapping
     @Transactional
-    public void create(@RequestBody @Valid TopicCreationData data){
+    public ResponseEntity create(@RequestBody @Valid TopicCreationData data){
         Topic topic = new Topic(data);
 
         topicRepository.save(topic);
+
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping

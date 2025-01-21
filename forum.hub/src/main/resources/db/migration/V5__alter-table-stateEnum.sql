@@ -1,0 +1,1 @@
+ALTER TABLE topics MODIFY COLUMN state enum ('NAO_RESPONDIDO','RESPONDIDO') not null;

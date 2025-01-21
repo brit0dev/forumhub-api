@@ -1,11 +1,12 @@
 package alura.forum.hub.model;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,7 +34,8 @@ public class Topic {
     @CreationTimestamp
     private Timestamp created;
     
-    private boolean state;
+    @Enumerated(EnumType.STRING)
+    private TopicState state;
 
     private String author;
 
@@ -42,7 +44,7 @@ public class Topic {
     public Topic(TopicCreationData data) {
         this.title = data.titulo();
         this.message = data.mensagem();
-        this.state = true;
+        this.state = TopicState.NAO_RESPONDIDO;
         this.author = data.autor();
         this.course = data.curso();
     }
@@ -55,12 +57,11 @@ public class Topic {
     }
 
 
-
-    public boolean getState(){
+    public TopicState getState(){
         return this.state;
     }
 
-    public boolean setState(boolean state){
+    public TopicState setState(TopicState state){
         return this.state = state;
     }
 }
